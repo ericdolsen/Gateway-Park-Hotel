@@ -1,10 +1,10 @@
+
 import { GoogleGenAI, Chat, GenerateContentResponse } from "@google/genai";
 import { HOTEL_INFO, ROOMS, AMENITIES } from '../constants';
 
 // Initialize the API client
-// Note: In a real production app, ensure this is instantiated securely.
-// Using generic environment variable access for the demo.
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+// Fixed: Using the named parameter apiKey and directly accessing process.env.API_KEY as per guidelines
+const ai = new GoogleGenAI({apiKey: process.env.API_KEY});
 
 const SYSTEM_INSTRUCTION = `
 You are the Virtual Concierge for ${HOTEL_INFO.name}.
@@ -30,6 +30,7 @@ let chatSession: Chat | null = null;
 export const initChat = () => {
   if (!chatSession) {
     chatSession = ai.chats.create({
+      // Using 'gemini-3-flash-preview' for basic conversational tasks
       model: 'gemini-3-flash-preview',
       config: {
         systemInstruction: SYSTEM_INSTRUCTION,
@@ -47,6 +48,7 @@ export const sendMessageToGemini = async function* (message: string) {
     
     for await (const chunk of result) {
         const c = chunk as GenerateContentResponse;
+        // Accessing .text property directly instead of calling it as a method
         if (c.text) {
             yield c.text;
         }

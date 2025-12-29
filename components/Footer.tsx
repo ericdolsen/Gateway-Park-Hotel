@@ -1,8 +1,25 @@
 import React from 'react';
-import { HOTEL_INFO } from '../constants';
+import { HOTEL_INFO, NAV_LINKS } from '../constants';
 import { Phone, Mail, MapPin, Instagram, Facebook, Twitter } from 'lucide-react';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  onPrivacyClick: () => void;
+  onTermsClick: () => void;
+  onNavigate: (sectionId: string) => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ onPrivacyClick, onTermsClick, onNavigate }) => {
+  const handleNavClick = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    const sectionId = href.replace('#', '');
+    onNavigate(sectionId || 'home');
+  };
+
+  const handleDiningClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.dispatchEvent(new CustomEvent('trigger-chat', { detail: 'What dining options are available nearby?' }));
+  };
+
   return (
     <footer id="contact" className="bg-stone-900 text-stone-300 pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -12,7 +29,7 @@ const Footer: React.FC = () => {
           <div className="space-y-6">
             <h3 className="font-serif text-2xl text-white font-bold">{HOTEL_INFO.name}</h3>
             <p className="text-sm leading-relaxed text-stone-400">
-              Your gateway to comfort and adventure. Experience modern luxury in the heart of Travelers City.
+              Modern luxury meets natural tranquility. Experience the perfect blend of comfort and convenience in Tea, SD.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="hover:text-brand-400 transition-colors"><Instagram size={20} /></a>
@@ -25,10 +42,25 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="text-white font-bold mb-6">Explore</h4>
             <ul className="space-y-4 text-sm">
-              <li><a href="#rooms" className="hover:text-brand-400 transition-colors">Accommodations</a></li>
-              <li><a href="#amenities" className="hover:text-brand-400 transition-colors">Amenities & Services</a></li>
-              <li><a href="#location" className="hover:text-brand-400 transition-colors">Local Attractions</a></li>
-              <li><a href="#" className="hover:text-brand-400 transition-colors">Dining</a></li>
+              {NAV_LINKS.map((link) => (
+                <li key={link.name}>
+                  <a 
+                    href={link.href} 
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className="hover:text-brand-400 transition-colors cursor-pointer"
+                  >
+                    {link.name === 'Home' ? 'Back to Top' : link.name}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <button 
+                  onClick={handleDiningClick}
+                  className="hover:text-brand-400 transition-colors cursor-pointer text-left"
+                >
+                  Dining & Local Recommendations
+                </button>
+              </li>
             </ul>
           </div>
 
@@ -71,8 +103,8 @@ const Footer: React.FC = () => {
         <div className="border-t border-stone-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-stone-500">
           <p>&copy; {new Date().getFullYear()} {HOTEL_INFO.name}. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="hover:text-stone-300">Privacy Policy</a>
-            <a href="#" className="hover:text-stone-300">Terms of Service</a>
+            <button onClick={onPrivacyClick} className="hover:text-stone-300 transition-colors">Privacy Policy</button>
+            <button onClick={onTermsClick} className="hover:text-stone-300 transition-colors">Terms of Service</button>
             <a href="#" className="hover:text-stone-300">Accessibility</a>
           </div>
         </div>

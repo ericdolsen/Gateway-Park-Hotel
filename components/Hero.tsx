@@ -1,9 +1,9 @@
+
 import React from 'react';
 import Button from './Button';
+import { BOOKING_URL } from '../constants';
 
 const Hero: React.FC = () => {
-  const widgetProps = { "data-be-url": "https://us2.cloudbeds.com/reservation/GTtAu9" } as any;
-
   const scrollToAmenities = () => {
     const element = document.getElementById('amenities');
     if (element) {
@@ -23,7 +23,7 @@ const Hero: React.FC = () => {
       <div className="absolute inset-0 z-0">
         <img 
           src="https://drive.google.com/uc?export=view&id=1abQxWCHbXieWraVDnig1PYWsBM7-Ujcu" 
-          alt="Gateway Park Hotel Lobby" 
+          alt="Gateway Park Hotel Hero" 
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/40 mix-blend-multiply"></div>
@@ -33,20 +33,22 @@ const Hero: React.FC = () => {
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight drop-shadow-lg">
-          Welcome to <br />
-          <span className="text-brand-300">Gateway Park</span>
+          Welcome to the <br />
+          <span className="text-brand-300">Gateway Park Hotel & Suites</span>
         </h1>
         <p className="max-w-2xl mx-auto text-lg sm:text-xl text-stone-100 mb-10 font-light leading-relaxed">
-          Modern luxury meets natural tranquility. Experience the perfect blend of comfort and convenience at your premier destination.
+          The Gateway Park Hotel offers affordable South Dakota lodging, including spacious rooms and suites perfect for any length of stay. All accommodations come standard TV, free Wi-Fi access, Keurig coffee maker, premium bath amenitie as well as a host of other amenities. For added comfort, all accommodation are smoke-free. Designated pet-friendly rooms are available.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button 
-            size="lg" 
-            {...widgetProps}
+            size="lg"
+            href={BOOKING_URL}
+            target="_blank"
+            data-be-url={BOOKING_URL}
           >
             Book Now
           </Button>
-          <Button variant="secondary" size="lg" onClick={scrollToAmenities}>
+          <Button size="lg" onClick={scrollToAmenities}>
             Explore Amenities
           </Button>
         </div>

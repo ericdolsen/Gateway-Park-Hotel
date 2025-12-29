@@ -1,9 +1,12 @@
+
 import React from 'react';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement> {
   variant?: 'primary' | 'secondary' | 'outline';
   size?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
+  href?: string;
+  target?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({ 
@@ -12,6 +15,7 @@ const Button: React.FC<ButtonProps> = ({
   size = 'md', 
   fullWidth = false,
   className = '',
+  href,
   ...props 
 }) => {
   const baseStyles = "inline-flex items-center justify-center rounded-none transition-all duration-300 font-medium focus:outline-none focus:ring-2 focus:ring-offset-2";
@@ -29,11 +33,24 @@ const Button: React.FC<ButtonProps> = ({
   };
 
   const widthStyle = fullWidth ? "w-full" : "";
+  const combinedClasses = `${baseStyles} ${variants[variant]} ${sizes[size]} ${widthStyle} ${className}`;
+
+  if (href) {
+    return (
+      <a 
+        href={href}
+        className={combinedClasses}
+        {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+      >
+        {children}
+      </a>
+    );
+  }
 
   return (
     <button 
-      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${widthStyle} ${className}`}
-      {...props}
+      className={combinedClasses}
+      {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
     >
       {children}
     </button>

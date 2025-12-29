@@ -1,13 +1,15 @@
 import { HotelInfo, Room, Amenity } from './types';
 
 export const HOTEL_INFO: HotelInfo = {
-  name: "Gateway Park Hotel",
+  name: "Gateway Park Hotel & Suites",
   address: "830 Gateway Lane, Tea SD, 57064",
   phone: "(605) 213-1500",
   email: "Info@gatewayparkhotel.com",
   checkIn: "3:00 PM",
   checkOut: "11:00 AM"
 };
+
+export const BOOKING_URL = "https://us2.cloudbeds.com/reservation/GTtAu9";
 
 export const ROOMS: Room[] = [
   {
@@ -16,7 +18,7 @@ export const ROOMS: Room[] = [
     description: "This room has a TV with cable channels, a closet, and a tea and coffee maker. There is one bed available in the unit.",
     capacity: 2,
     amenities: ["1 King Bed", "Free WiFi", "Microwave", "Mini-Fridge", "Work Desk"],
-    imageUrl: "https://picsum.photos/800/600?random=201"
+    imageUrl: "Media/GrandStay Tea-King.jpg"
   },
   {
     id: 'double-queen',
@@ -61,7 +63,7 @@ export const ROOMS: Room[] = [
   {
     id: 'accessible-king-studio',
     name: "Accessible King Studio",
-    description: "An open-layout studio designed for accessibility, featuring a king bed and ample maneuvering space.  You can prepare and store food in the room's kitchenette, which features a refrigerator and a microwave and stovetop.",
+    description: "An open-layout studio designed for accessibility, featuring a king bed and ample maneuvering space.  You can prepare and store food in the room's kitchenette, which features a refrigerator, microwave and stovetop.",
     capacity: 4,
     amenities: ["1 King Bed", "Visual Alerts", "Studio Layout", "Accessible Vanity", "Free WiFi", "Kitchenette", "Coffee Maker", "TV"],
     imageUrl: "https://webbox.imgix.net/images/dvsnsscxkutjxwxc/734a7e44-6096-4922-bd77-b39830ff0b47.jpg?auto=format,compress&fit=crop&crop=entropy&w=1248"
@@ -82,7 +84,6 @@ export const ROOMS: Room[] = [
     amenities: ["1 King Bed", "Kitchenette", "Living Area", "Sofa Sleeper", "Free WiFi", "Coffee Maker", "Two TV"],
     imageUrl: "https://picsum.photos/800/600?random=208"
   }
-  
 ];
 
 export const AMENITIES: Amenity[] = [
@@ -103,8 +104,8 @@ export const AMENITIES: Amenity[] = [
   },
   {
     icon: 'MapPin',
-    title: "",
-    description: ""
+    title: "Prime Location",
+    description: "Situated in Tea, SD, offering easy access to Sioux Falls area local businesses, shopping and regional attractions."
   }
 ];
 

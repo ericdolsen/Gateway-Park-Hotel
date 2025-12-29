@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Hotel } from 'lucide-react';
-import { NAV_LINKS, HOTEL_INFO } from '../constants';
+import { NAV_LINKS, HOTEL_INFO, BOOKING_URL } from '../constants';
 import Button from './Button';
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  onHome: () => void;
+  onNavigate: (sectionId: string) => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onHome, onNavigate }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -19,31 +24,19 @@ const Navbar: React.FC = () => {
     e.preventDefault();
     setIsOpen(false);
     
-    const targetId = href.replace('#', '');
-    const element = document.getElementById(targetId);
-    
-    if (element) {
-      const headerOffset = 80; // Adjusted for header height + breathing room
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
-    } else if (href === '#') {
-       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    const sectionId = href.replace('#', '');
+    onNavigate(sectionId || 'home');
   };
-
-  const widgetProps = { "data-be-url": "https://us2.cloudbeds.com/reservation/GTtAu9" } as any;
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white/95 backdrop-blur-md shadow-sm py-2' : 'bg-transparent py-4'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="flex-shrink-0 flex items-center gap-2">
+          <div 
+            className="flex-shrink-0 flex items-center gap-2 cursor-pointer"
+            onClick={onHome}
+          >
             <Hotel className={`h-8 w-8 ${isScrolled ? 'text-brand-800' : 'text-white'}`} />
             <span className={`font-serif text-xl font-bold tracking-wide ${isScrolled ? 'text-brand-900' : 'text-white'}`}>
               {HOTEL_INFO.name}
@@ -65,7 +58,8 @@ const Navbar: React.FC = () => {
             <Button 
               variant={isScrolled ? 'primary' : 'secondary'} 
               size="sm"
-              {...widgetProps}
+              href={BOOKING_URL}
+              target="_blank"
             >
               Book Now
             </Button>
@@ -98,7 +92,13 @@ const Navbar: React.FC = () => {
               </a>
             ))}
             <div className="pt-4">
-              <Button fullWidth {...widgetProps}>Book Your Stay</Button>
+              <Button 
+                fullWidth 
+                href={BOOKING_URL}
+                target="_blank"
+              >
+                Book Your Stay
+              </Button>
             </div>
           </div>
         </div>

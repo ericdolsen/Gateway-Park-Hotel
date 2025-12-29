@@ -1,11 +1,10 @@
+
 import React from 'react';
-import { ROOMS } from '../constants';
+import { ROOMS, BOOKING_URL } from '../constants';
 import Button from './Button';
 import { Users, Wifi, Maximize } from 'lucide-react';
 
 const Rooms: React.FC = () => {
-  const widgetProps = { "data-be-url": "https://us2.cloudbeds.com/reservation/GTtAu9" } as any;
-
   return (
     <section id="rooms" className="py-24 bg-stone-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -51,7 +50,9 @@ const Rooms: React.FC = () => {
                 <Button 
                   variant="outline" 
                   fullWidth
-                  {...widgetProps}
+                  href={BOOKING_URL}
+                  target="_blank"
+                  data-be-url={BOOKING_URL}
                 >
                   Book Now
                 </Button>
