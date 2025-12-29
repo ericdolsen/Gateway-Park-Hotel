@@ -1,10 +1,10 @@
+
 import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Rooms from './components/Rooms';
 import Amenities from './components/Amenities';
 import Footer from './components/Footer';
-import ChatWidget from './components/ChatWidget';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
 
@@ -90,7 +90,6 @@ const App: React.FC = () => {
         onTermsClick={() => navigateTo('terms')} 
         onNavigate={scrollToSection}
       />
-      <ChatWidget />
     </div>
   );
 };

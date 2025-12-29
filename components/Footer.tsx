@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { HOTEL_INFO, NAV_LINKS } from '../constants';
 import { Phone, Mail, MapPin, Instagram, Facebook, Twitter } from 'lucide-react';
@@ -13,11 +14,6 @@ const Footer: React.FC<FooterProps> = ({ onPrivacyClick, onTermsClick, onNavigat
     e.preventDefault();
     const sectionId = href.replace('#', '');
     onNavigate(sectionId || 'home');
-  };
-
-  const handleDiningClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    window.dispatchEvent(new CustomEvent('trigger-chat', { detail: 'What dining options are available nearby?' }));
   };
 
   return (
@@ -53,14 +49,6 @@ const Footer: React.FC<FooterProps> = ({ onPrivacyClick, onTermsClick, onNavigat
                   </a>
                 </li>
               ))}
-              <li>
-                <button 
-                  onClick={handleDiningClick}
-                  className="hover:text-brand-400 transition-colors cursor-pointer text-left"
-                >
-                  Dining & Local Recommendations
-                </button>
-              </li>
             </ul>
           </div>
 

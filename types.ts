@@ -1,3 +1,4 @@
+
 export interface Room {
   id: string;
   name: string;
@@ -13,13 +14,6 @@ export interface Amenity {
   description: string;
 }
 
-export interface ChatMessage {
-  id: string;
-  role: 'user' | 'model';
-  text: string;
-  timestamp: Date;
-}
-
 export interface HotelInfo {
   name: string;
   address: string;
@@ -27,4 +21,12 @@ export interface HotelInfo {
   email: string;
   checkIn: string;
   checkOut: string;
+}
+
+// Added ChatMessage interface to resolve compilation error in ChatWidget.tsx
+export interface ChatMessage {
+  id: string;
+  role: 'user' | 'model';
+  text: string;
+  timestamp: Date;
 }
